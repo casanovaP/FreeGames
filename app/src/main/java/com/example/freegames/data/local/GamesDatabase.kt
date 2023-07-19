@@ -1,9 +1,11 @@
 package com.example.freegames.data.local
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.freegames.data.model.GameDto
 import com.example.freegames.data.local.dao.GamesDao
 
@@ -19,6 +21,12 @@ abstract class GamesDatabase : RoomDatabase() {
             }
             return databaseBuilder
                 .fallbackToDestructiveMigration()
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        Log.d("GamesDatabase", "Database created")
+                    }
+                })
                 .build()
         }
     }

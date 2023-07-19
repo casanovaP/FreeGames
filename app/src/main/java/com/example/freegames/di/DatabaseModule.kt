@@ -36,7 +36,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(gamesDao: GamesDao): LocalDataSource {
-        return LocalDataSourceImpl(gamesDao = gamesDao)
+    fun provideLocalDataSource(gamesDao: GamesDao, database: GamesDatabase): LocalDataSource {
+        return LocalDataSourceImpl(gamesDao = gamesDao, database = database)
     }
 }

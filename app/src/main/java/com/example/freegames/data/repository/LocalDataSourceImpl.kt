@@ -1,10 +1,15 @@
 package com.example.freegames.data.repository
 
+import android.util.Log
+import com.example.freegames.data.local.GamesDatabase
 import com.example.freegames.data.local.dao.GamesDao
 import com.example.freegames.data.model.GameDto
 import com.example.freegames.domain.repository.LocalDataSource
+import javax.inject.Inject
 
-class LocalDataSourceImpl(private val gamesDao: GamesDao) : LocalDataSource {
+class LocalDataSourceImpl @Inject constructor(private val gamesDao: GamesDao, private val database: GamesDatabase) : LocalDataSource {
+
+
     override suspend fun getAllGames(): List<GameDto> {
         return gamesDao.getAllGames()
     }
@@ -18,6 +23,7 @@ class LocalDataSourceImpl(private val gamesDao: GamesDao) : LocalDataSource {
     }
 
     override suspend fun insertGames(games: List<GameDto>) {
+        Log.d("LocalDataSource", "Inserting games: $games")
         return gamesDao.addGames(games)
     }
 
